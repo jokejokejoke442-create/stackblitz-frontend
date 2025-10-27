@@ -157,26 +157,28 @@ export function Sidebar() {
   );
 
   return (
-    <div className="flex h-full w-64 flex-col bg-white border-r">
-      <div className="flex h-16 items-center border-b px-6">
-        <Building className="h-6 w-6 text-primary mr-2" />
-        <span className="text-xl font-bold">EduCloud</span>
+    <div className="flex h-full w-64 flex-col glass-card border-r">
+      <div className="flex h-16 items-center border-b border-border/50 px-6">
+        <div className="h-10 w-10 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-primary">
+          <Building className="h-6 w-6 text-white" />
+        </div>
+        <span className="ml-2 text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">EduCloud</span>
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
         {filteredNavItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-          
+
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={handleNavClick(item.href)}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all',
                 isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-gradient-primary text-white shadow-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               )}
             >
               <Icon className="h-5 w-5" />

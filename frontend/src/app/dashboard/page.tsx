@@ -101,7 +101,7 @@ function AdminDashboard({ user }: { user: any }) {
   };
 
   return (
-    <div className="px-4 py-6 sm:px-0">
+    <div className="min-h-screen mesh-background px-4 py-6 sm:px-6">
       {dataLoading ? (
         <div className="flex justify-center items-center h-64">
           <Loader2 className="h-8 w-8 animate-spin" />
@@ -110,77 +110,116 @@ function AdminDashboard({ user }: { user: any }) {
         <DataNotFoundForEntity entity="dashboard" />
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card>
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2">
+              Welcome back, <span className="bg-gradient-primary bg-clip-text text-transparent">{user?.firstName || 'Admin'}</span>
+            </h1>
+            <p className="text-muted-foreground">Here's what's happening with your school today</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <Card className="glass-card rounded-3xl hover-float shadow-soft border-border/50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Students
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.totalStudents?.toLocaleString() || '0'}
+                <div>
+                  <CardTitle className="text-sm font-medium text-muted-foreground mb-2">
+                    Total Students
+                  </CardTitle>
+                  <div className="text-4xl font-bold">
+                    {stats.totalStudents?.toLocaleString() || '0'}
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                      stats.studentChange >= 0
+                        ? 'bg-success/10 text-success'
+                        : 'bg-destructive/10 text-destructive'
+                    }`}>
+                      {stats.studentChange >= 0 ? '↑' : '↓'} {Math.abs(stats.studentChange || 0).toFixed(1)}%
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {stats.studentChange >= 0 ? '+' : ''}{stats.studentChange?.toFixed(1)}% from last month
-                </p>
-              </CardContent>
+                <div className="h-14 w-14 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-primary">
+                  <Users className="h-7 w-7 text-white" />
+                </div>
+              </CardHeader>
             </Card>
-            <Card>
+            <Card className="glass-card rounded-3xl hover-float shadow-soft border-border/50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Teachers
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.totalTeachers?.toLocaleString() || '0'}
+                <div>
+                  <CardTitle className="text-sm font-medium text-muted-foreground mb-2">
+                    Total Teachers
+                  </CardTitle>
+                  <div className="text-4xl font-bold">
+                    {stats.totalTeachers?.toLocaleString() || '0'}
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                      stats.teacherChange >= 0
+                        ? 'bg-success/10 text-success'
+                        : 'bg-destructive/10 text-destructive'
+                    }`}>
+                      {stats.teacherChange >= 0 ? '↑' : '↓'} {Math.abs(stats.teacherChange || 0).toFixed(1)}%
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {stats.teacherChange >= 0 ? '+' : ''}{stats.teacherChange?.toFixed(1)}% from last month
-                </p>
-              </CardContent>
+                <div className="h-14 w-14 rounded-2xl bg-gradient-secondary flex items-center justify-center shadow-secondary">
+                  <Users className="h-7 w-7 text-white" />
+                </div>
+              </CardHeader>
             </Card>
-            <Card>
+            <Card className="glass-card rounded-3xl hover-float shadow-soft border-border/50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Classes
-                </CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.totalClasses?.toLocaleString() || '0'}
+                <div>
+                  <CardTitle className="text-sm font-medium text-muted-foreground mb-2">
+                    Total Classes
+                  </CardTitle>
+                  <div className="text-4xl font-bold">
+                    {stats.totalClasses?.toLocaleString() || '0'}
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                      stats.classChange >= 0
+                        ? 'bg-success/10 text-success'
+                        : 'bg-destructive/10 text-destructive'
+                    }`}>
+                      {stats.classChange >= 0 ? '↑' : '↓'} {Math.abs(stats.classChange || 0).toFixed(1)}%
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {stats.classChange >= 0 ? '+' : ''}{stats.classChange?.toFixed(1)}% from last month
-                </p>
-              </CardContent>
+                <div className="h-14 w-14 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-accent">
+                  <BookOpen className="h-7 w-7 text-white" />
+                </div>
+              </CardHeader>
             </Card>
-            <Card>
+            <Card className="glass-card rounded-3xl hover-float shadow-soft border-border/50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Monthly Revenue
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  ${stats.monthlyRevenue ? (stats.monthlyRevenue / 1000).toFixed(1) : '0'}k
+                <div>
+                  <CardTitle className="text-sm font-medium text-muted-foreground mb-2">
+                    Monthly Revenue
+                  </CardTitle>
+                  <div className="text-4xl font-bold">
+                    ${stats.monthlyRevenue ? (stats.monthlyRevenue / 1000).toFixed(1) : '0'}k
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                      stats.revenueChange >= 0
+                        ? 'bg-success/10 text-success'
+                        : 'bg-destructive/10 text-destructive'
+                    }`}>
+                      {stats.revenueChange >= 0 ? '↑' : '↓'} {Math.abs(stats.revenueChange || 0).toFixed(1)}%
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {stats.revenueChange >= 0 ? '+' : ''}{stats.revenueChange?.toFixed(1)}% from last month
-                </p>
-              </CardContent>
+                <div className="h-14 w-14 rounded-2xl bg-gradient-secondary flex items-center justify-center shadow-secondary">
+                  <DollarSign className="h-7 w-7 text-white" />
+                </div>
+              </CardHeader>
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="lg:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <Card className="lg:col-span-2 glass-card rounded-3xl shadow-soft border-border/50">
               <CardHeader>
-                <CardTitle>Recent Activities</CardTitle>
+                <CardTitle className="text-lg font-semibold">Recent Activities</CardTitle>
                 <CardDescription>
                   Latest actions performed in the system
                 </CardDescription>
@@ -188,23 +227,25 @@ function AdminDashboard({ user }: { user: any }) {
               <CardContent>
                 {activities.length === 0 ? (
                   <div className="text-center py-8">
-                    <Bell className="mx-auto h-12 w-12 text-gray-400" />
-                    <h3 className="mt-2 text-sm font-medium text-gray-900">No activities</h3>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <Bell className="mx-auto h-12 w-12 text-muted-foreground" />
+                    <h3 className="mt-2 text-sm font-medium">No activities</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
                       There are no recent activities to display.
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {activities.slice(0, 5).map((activity) => (
-                      <div key={activity.id} className="flex items-start">
+                      <div key={activity.id} className="flex items-start p-3 rounded-xl hover:bg-muted/30 transition-colors">
                         <div className="flex-shrink-0">
-                          <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
+                          <div className="bg-gradient-primary rounded-xl w-12 h-12 flex items-center justify-center">
+                            <Calendar className="h-6 w-6 text-white" />
+                          </div>
                         </div>
                         <div className="ml-4">
                           <h4 className="text-sm font-medium">{activity.title}</h4>
-                          <p className="text-sm text-gray-500">{activity.description}</p>
-                          <div className="mt-1 flex items-center text-xs text-gray-500">
+                          <p className="text-sm text-muted-foreground">{activity.description}</p>
+                          <div className="mt-1 flex items-center text-xs text-muted-foreground">
                             <Calendar className="mr-1 h-3 w-3" />
                             {activity.time}
                           </div>
@@ -216,17 +257,17 @@ function AdminDashboard({ user }: { user: any }) {
               </CardContent>
             </Card>
 
-            <div className="space-y-6">
-              <Card>
+            <div className="space-y-4">
+              <Card className="glass-card rounded-3xl shadow-soft border-border/50">
                 <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                  <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
                   <CardDescription>
                     Common actions you can perform
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full rounded-xl border-2 hover:border-primary"
                     variant="outline"
                     onClick={handleAddStudent}
                     loading={!!actionLoading.student}
@@ -235,24 +276,24 @@ function AdminDashboard({ user }: { user: any }) {
                     <Users className="mr-2 h-4 w-4" />
                     Add Student
                   </Button>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full rounded-xl border-2 hover:border-primary"
                     variant="outline"
                     onClick={handleAddTeacher}
                   >
                     <Users className="mr-2 h-4 w-4" />
                     Add Teacher
                   </Button>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full rounded-xl border-2 hover:border-primary"
                     variant="outline"
                     onClick={handleGenerateInvoice}
                   >
                     <DollarSign className="mr-2 h-4 w-4" />
                     Generate Invoice
                   </Button>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full rounded-xl border-2 hover:border-primary"
                     variant="outline"
                     onClick={handleViewCalendar}
                   >
@@ -262,23 +303,23 @@ function AdminDashboard({ user }: { user: any }) {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="glass-card rounded-3xl shadow-soft border-border/50">
                 <CardHeader>
-                  <CardTitle>System Status</CardTitle>
+                  <CardTitle className="text-lg font-semibold">System Status</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-sm">Database</span>
-                      <Badge variant="success">Operational</Badge>
+                    <div className="flex justify-between items-center p-2 rounded-xl hover:bg-muted/30 transition-colors">
+                      <span className="text-sm font-medium">Database</span>
+                      <Badge className="bg-success/10 text-success border-0">Operational</Badge>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm">API</span>
-                      <Badge variant="success">Operational</Badge>
+                    <div className="flex justify-between items-center p-2 rounded-xl hover:bg-muted/30 transition-colors">
+                      <span className="text-sm font-medium">API</span>
+                      <Badge className="bg-success/10 text-success border-0">Operational</Badge>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm">Storage</span>
-                      <Badge variant="success">Operational</Badge>
+                    <div className="flex justify-between items-center p-2 rounded-xl hover:bg-muted/30 transition-colors">
+                      <span className="text-sm font-medium">Storage</span>
+                      <Badge className="bg-success/10 text-success border-0">Operational</Badge>
                     </div>
                   </div>
                 </CardContent>

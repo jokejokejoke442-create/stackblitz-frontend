@@ -30,55 +30,47 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white">
+    <header className="sticky top-0 z-50 w-full border-b glass-card">
       <div className="flex h-16 items-center gap-4 px-6">
-        {/* Search */}
         <div className="flex-1 max-w-md">
           <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search students, teachers, classes..."
-              className="pl-8 w-full"
+              className="pl-10 w-full glass-card rounded-xl"
             />
           </div>
         </div>
 
-        {/* Right side */}
-        <div className="flex items-center gap-4">
-          {/* Notifications */}
+        <div className="flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative rounded-xl">
                 <Bell className="h-5 w-5" />
-                <Badge
-                  variant="destructive"
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
-                >
-                  3
-                </Badge>
+                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-secondary animate-pulse" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
+            <DropdownMenuContent align="end" className="w-80 glass-card rounded-2xl">
               <DropdownMenuLabel>Notifications</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <div className="max-h-96 overflow-y-auto">
-                <div className="p-2 hover:bg-gray-50 cursor-pointer">
+                <div className="p-2 hover:bg-muted/50 cursor-pointer rounded-xl transition-colors">
                   <p className="text-sm font-medium">New student registered</p>
-                  <p className="text-xs text-gray-500">2 minutes ago</p>
+                  <p className="text-xs text-muted-foreground">2 minutes ago</p>
                 </div>
-                <div className="p-2 hover:bg-gray-50 cursor-pointer">
+                <div className="p-2 hover:bg-muted/50 cursor-pointer rounded-xl transition-colors">
                   <p className="text-sm font-medium">Payment received</p>
-                  <p className="text-xs text-gray-500">15 minutes ago</p>
+                  <p className="text-xs text-muted-foreground">15 minutes ago</p>
                 </div>
-                <div className="p-2 hover:bg-gray-50 cursor-pointer">
+                <div className="p-2 hover:bg-muted/50 cursor-pointer rounded-xl transition-colors">
                   <p className="text-sm font-medium">New message from teacher</p>
-                  <p className="text-xs text-gray-500">1 hour ago</p>
+                  <p className="text-xs text-muted-foreground">1 hour ago</p>
                 </div>
               </div>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                className="justify-center cursor-pointer"
+              <DropdownMenuItem
+                className="justify-center cursor-pointer rounded-xl"
                 onClick={() => router.push('/notifications')}
               >
                 View all notifications
@@ -86,13 +78,12 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* User menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="gap-2">
-                <Avatar className="h-8 w-8">
+              <Button variant="ghost" className="gap-2 rounded-xl hover:bg-muted/50">
+                <Avatar className="h-10 w-10 ring-2 ring-background">
                   <AvatarImage src={user?.profileImage} />
-                  <AvatarFallback>
+                  <AvatarFallback className="bg-gradient-secondary text-white font-bold">
                     {getInitials(user?.firstName, user?.lastName)}
                   </AvatarFallback>
                 </Avatar>
@@ -100,24 +91,24 @@ export function Header() {
                   <span className="text-sm font-medium">
                     {user?.firstName} {user?.lastName}
                   </span>
-                  <span className="text-xs text-gray-500 capitalize">
+                  <span className="text-xs text-muted-foreground capitalize">
                     {user?.role}
                   </span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="w-56 glass-card rounded-2xl">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="cursor-pointer"
+                className="cursor-pointer rounded-xl"
                 onClick={() => router.push('/profile')}
               >
                 <User className="mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="cursor-pointer"
+                className="cursor-pointer rounded-xl"
                 onClick={() => router.push('/settings')}
               >
                 <Settings className="mr-2 h-4 w-4" />
@@ -125,7 +116,7 @@ export function Header() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="cursor-pointer text-red-600"
+                className="cursor-pointer text-destructive rounded-xl"
                 onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />
